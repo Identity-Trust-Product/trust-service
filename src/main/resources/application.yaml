@@ -1,3 +1,27 @@
 spring:
   application:
     name: trust-service
+  datasource:
+    url: ${TRUST_DB_URL:${DB_URL:jdbc:postgresql://${DB_HOST:10.212.10.135}:${DB_PORT:5432}/${TRUST_DB_NAME:trustdb}}}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:Welcome@123}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 5000
+      validation-timeout: 3000
+      initialization-fail-timeout: 0
+  jpa:
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: ${TRUST_SQL_INIT_MODE:always}
+
+server:
+  port: ${TRUST_SERVICE_PORT:8087}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
